@@ -1,4 +1,4 @@
-// cSpell:Ignore porta, versao, Servidor, funcional, iniciado, mensagem
+// cSpell:Ignore porta, Métodos, versao, validação, Cabeçalhos, Servidor, serão, permitidos, produção, remova, Básico, funcional, iniciado, mensagem,informe
 require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -7,6 +7,20 @@ const app = express()
 
 //porta default
 const PORT = process.env.PORT || 4000
+
+//middleware Básico
+app.use(function(req, res, next){
+    //Em produção, remova o * e informe a sua url
+    res.setHeader('Access-Control-Allow-Origin','*')
+    //Cabeçalhos que serão permitidos
+    res.setHeader('Access-Control-Allow-Headers','Origin, X-Request-With, Content-Type, Accept, x-access-token')
+    //Métodos que serão permitidos
+    res.setHeader('Access-Control-Allow-Methods','GET, POST, PUT, PATCH, DELETE, OPTIONS')
+    next()
+})
+
+//parse JSON (validação)
+app.use(bodyParser.json())
 
 app.get('/', (req, res) =>{
     res.json({mensagem: 'API 100% funcional!',
