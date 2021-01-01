@@ -1,15 +1,17 @@
-// cSpell:Ignore porta, Métodos, versao, inicializamos, validação, inicializaMongoServer, Cabeçalhos, Servidor, serão, permitidos, produção, remova, Básico, funcional, iniciado, mensagem,informe
+// cSpell:Ignore porta, Métodos, Usuário, versao, Usuario, inicializamos, validação, inicializaMongoServer, Cabeçalhos, Servidor, serão, permitidos, produção, remova, Básico, funcional, iniciado, mensagem,informe
 require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
 const inicializaMongoServer = require('./config/db')
+const usuario = require('./routes/Usuario')
+
 //inicializamos o servidor mongodb
 inicializaMongoServer()
 
 const app = express()
 
 //porta default
-const PORT = process.env.PORT || 4000
+const PORT = process.env.PORT || 3000
 
 //middleware Básico
 app.use(function(req, res, next){
@@ -29,6 +31,9 @@ app.get('/', (req, res) =>{
     res.json({mensagem: 'API 100% funcional!',
             versao: '1.0.0'})
 })
+
+/**Rotas do Usuário */
+app.use('/usuario', usuario)
 
 app.listen(PORT, (req, res) => {
     console.log(`🖥️  Servidor iniciado na porta ${PORT}`)
