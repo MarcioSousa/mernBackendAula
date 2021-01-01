@@ -1,4 +1,4 @@
-// cSpell:Ignore Conexão, MONGOURI, conectar, possível, Conectado, criação, novos, servidores, padrão, descoberta, permite, utiliza, InicializaMongoServer
+// cSpell:Ignore EMOJI Conexão, MONGOURI, conectar, possível, Conectado, criação, novos, servidores, padrão, descoberta, permite, utiliza, InicializaMongoServer
 
 const mongoose = require('mongoose')
 //String de Conexão
@@ -14,7 +14,7 @@ const InicializaMongoServer = async() => {
         })
         console.log('⚡ Conectado ao MongoDB!')
     }catch(e){
-        console.log('Não foi possível conectar ao MongoDB')
+        console.log('⚠️ Não foi possível conectar ao MongoDB')
         console.error(e)
         throw e
     }

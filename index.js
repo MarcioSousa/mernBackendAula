@@ -1,7 +1,10 @@
-// cSpell:Ignore porta, Métodos, versao, validação, Cabeçalhos, Servidor, serão, permitidos, produção, remova, Básico, funcional, iniciado, mensagem,informe
+// cSpell:Ignore porta, Métodos, versao, inicializamos, validação, inicializaMongoServer, Cabeçalhos, Servidor, serão, permitidos, produção, remova, Básico, funcional, iniciado, mensagem,informe
 require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
+const inicializaMongoServer = require('./config/db')
+//inicializamos o servidor mongodb
+inicializaMongoServer()
 
 const app = express()
 
