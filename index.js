@@ -1,10 +1,10 @@
-// cSpell:Ignore porta, Métodos, Usuário, versao, Usuario, inicializamos, validação, inicializaMongoServer, Cabeçalhos, Servidor, serão, permitidos, produção, remova, Básico, funcional, iniciado, mensagem,informe
+// cSpell:Ignore porta, Métodos, produtos, Usuário, Produto, versao, Usuario, inicializamos, validação, inicializaMongoServer, Cabeçalhos, Servidor, serão, permitidos, produção, remova, Básico, funcional, iniciado, mensagem,informe
 require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
 const inicializaMongoServer = require('./config/db')
 const usuario = require('./routes/Usuario')
-
+const produto = require('./routes/Produto')
 //inicializamos o servidor mongodb
 inicializaMongoServer()
 
@@ -34,6 +34,9 @@ app.get('/', (req, res) =>{
 
 /**Rotas do Usuário */
 app.use('/usuario', usuario)
+
+/**Rotas do produto */
+app.use('/produtos', produto)
 
 app.listen(PORT, (req, res) => {
     console.log(`🖥️  Servidor iniciado na porta ${PORT}`)
