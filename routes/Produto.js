@@ -1,4 +1,4 @@
-//cSpell:Ignore Produto, produtos, descricao, pela, salvar, Lista, preco, preço, codigobarras, codigobarra, válido, código, ordena, Insere, barras, obter, todos, coluna, Erro, Informe, formato
+//cSpell:Ignore Produto, Apaga, possível, Editar, arroz, removido, único, informado, sucesso, produtos, determinado, descricao, pelo, pela, salvar, Lista, preco, preço, codigobarras, codigobarra, válido, código, ordena, Insere, barras, obter, todos, coluna, Erro, Informe, formato
 const Produto = require('../model/Produto')
 const express = require('express')
 const router = express.Router()
@@ -41,6 +41,57 @@ router.post("/", [
     }
 })
 
+/**
+ * Lista um único produto pelo ID
+ */
+router.get("/:id", async(req, res) =>{
+    await Produto.findById(req.params.id).then(produto =>{
+        res.send(produto)
+    }).catch(err => {
+        return res.status(400).send({
+            message: `Erro ao obter o produto com o id ${req.params.id}`
+        })
+    })
+})
 
+/**
+ * Apaga um determinado produto pelo id
+ */
+router.delete("/:id", async(req, res) => {
+    await Produto.findByIdAndRemove(req.params.id).then(produto =>{
+        res.send({message: 'Produto removido com sucesso!'})
+    }).catch(err =>{
+        return res.status(400).send({
+            message: `Não foi possível remover o produto com o id ${req.params.id}`
+        })
+    })
+})
+
+/**
+ * Editar o produto informado
+ */
+router.put("/",[
+    check("nome", "Informe o nome do produto!").not().isEmpty(),
+    check("codigobarra","Informe um código de barras no formato EAN13!").isNumeric().isLength({min: 13, max:13}),
+    check("preco", "Informe um preço válido!").isFloat({min:0})
+], async(req, res) => {
+    const errors = validationResult(req)
+    if(!errors.isEmpty()){
+        return res.status(400).json({
+            errors: errors.array()
+        })
+    }
+    //update produtos set nome = 'arroz', preco = '29.90', codigobarra='123' where id = 123
+    let dados = req.body
+    await Produto.findByIdAndUpdate(req.body._id,{
+        $set: dados
+    },{new: true}, function(err, result){
+        if(err){
+            res.send(err)
+        }else{
+            res.send(result)
+        }
+    })
+})
 
 module.exports = router

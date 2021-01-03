@@ -5,3 +5,39 @@
 //Obtendo todos os produtos
 GET {{baseUrl}}/produtos
 Content-Type: application/json
+
+###
+//Inserindo um novo produto
+POST {{baseUrl}}/produtos
+Content-Type: application/json
+
+{
+    "nome": "Carne de Asa",
+    "Descricao": "Peito de Asa",
+    "codigobarra": "1234567890124",
+    "preco": "7.00"
+}
+
+###
+@id = 5ff0d8938bb66609146737aa
+//Obtendo um produto pelo id
+GET {{baseUrl}}/produtos/{{id}}
+Content-Type: application/json
+
+###
+//Removendo o produto pelo id
+DELETE  {{baseUrl}}/produtos/{{id}}
+Content-Type: application/json
+
+###
+//Alterando um produto
+PUT {{baseUrl}}/produtos
+Content-Type: application/json
+
+{
+    "_id": "5ff20929ec5bcd235043af24",
+    "nome": "Carne de Frango",
+    "Descricao": "Peito de Frango",
+    "codigobarra": "1234567890124",
+    "preco": "7.00"
+}
